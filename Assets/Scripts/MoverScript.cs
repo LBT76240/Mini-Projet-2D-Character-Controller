@@ -10,6 +10,29 @@ public class MoverScript : MonoBehaviour {
     bool canGoLeft;
     bool canGoRight;
 
+    bool isWallJumping;
+    Vector2 vectorWallJumping;
+    float timerWallJumping;
+    public float timeWallJumpingLimit;
+
+    public void walljump() {
+        
+        if(!canGoLeft) {
+            
+            isWallJumping = true;
+            vectorWallJumping = new Vector2(+5, 0);
+            timerWallJumping = 0;
+        }
+        if (!canGoRight) {
+            
+            isWallJumping = true;
+            vectorWallJumping = new Vector2(-5, 0);
+            timerWallJumping = 0;
+        }
+    }
+
+
+
     public void setCanGoLeft(bool value) {
         canGoLeft = value;
     }
@@ -21,7 +44,10 @@ public class MoverScript : MonoBehaviour {
     public void Start() {
         canGoLeft = true;
         canGoRight = true;
+        isWallJumping = false;
     }
+
+    
 
     // Update is called once per frame
     void FixedUpdate () {
@@ -31,10 +57,20 @@ public class MoverScript : MonoBehaviour {
         speed += inputManager.getSpeed();
         speed += gravityManager.getSpeed();
 
-        if(!canGoLeft && speed.x<0) {
-            speed.x = 0;
+        if (isWallJumping) {
+            timerWallJumping += Time.deltaTime;
+            if(timerWallJumping> timeWallJumpingLimit) {
+                isWallJumping = false;
+            } else {
+               
+                speed.x = vectorWallJumping.x*(timeWallJumpingLimit- timerWallJumping)/ timeWallJumpingLimit 
+                    + speed.x * (timerWallJumping) / timeWallJumpingLimit;
+            }
         }
 
+        if (!canGoLeft && speed.x < 0) {
+            speed.x = 0;
+        }
         if (!canGoLeft && speed.x > 0) {
             setCanGoLeft(true);
         }
@@ -44,6 +80,7 @@ public class MoverScript : MonoBehaviour {
         if (!canGoRight && speed.x < 0) {
             setCanGoRight(true);
         }
+        
 
         pos += speed * Time.deltaTime;
 

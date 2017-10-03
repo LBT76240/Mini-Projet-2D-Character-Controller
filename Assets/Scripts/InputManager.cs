@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour {
 
     public float speed;
     Vector2 speedVector;
+    
 
     private void Start() {
         speedVector = new Vector2(0, 0);

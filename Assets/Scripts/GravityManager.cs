@@ -20,6 +20,8 @@ public class GravityManager : MonoBehaviour {
 
     public void jump() {
         if (isTouchingSurface) {
+            leaveSurface();
+            gameObject.GetComponent<MoverScript>().walljump();
             speedVector.y = 5;
         }
     }
