@@ -597,8 +597,8 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!212 &434323350
 SpriteRenderer:
@@ -679,6 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCollider: {fileID: 434323348}
+  moverScript: {fileID: 434323355}
 --- !u!114 &434323354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,7 +692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityManager: {fileID: 434323352}
-  speed: 5
+  speed: 10
 --- !u!114 &434323355
 MonoBehaviour:
   m_ObjectHideFlags: 0

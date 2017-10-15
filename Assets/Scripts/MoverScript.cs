@@ -16,13 +16,14 @@ public class MoverScript : MonoBehaviour {
     public float timeWallJumpingLimit;
     Vector2 lastSpeed;
     Vector2 lastPos;
-
+    Vector2 lastPos2;
+    Vector2 lastPos3;
     public Vector2 getLastSpeed() {
         return lastSpeed;
     }
 
     public Vector2 getLastPos() {
-        return lastPos;
+        return lastPos3;
     }
 
     public void walljump() {
@@ -56,26 +57,34 @@ public class MoverScript : MonoBehaviour {
         canGoRight = true;
         isWallJumping = false;
         lastSpeed = new Vector2();
+        lastPos = new Vector2();
+        lastPos2 = new Vector2();
+        lastPos3 = new Vector2();
     }
 
     
 
     // Update is called once per frame
-    void FixedUpdate () {
+    void Update () {
 
         Vector2 pos = gameObject.transform.position;
+
+        //Save the last 3 positions
+        lastPos3 = lastPos2;
+        lastPos2 = lastPos;
         lastPos = pos;
+
         Vector2 speed = new Vector2(0, 0);
         speed += inputManager.getSpeed();
         speed += gravityManager.getSpeed();
 
         if (isWallJumping) {
             timerWallJumping += Time.deltaTime;
-            if(timerWallJumping> timeWallJumpingLimit) {
+            if (timerWallJumping > timeWallJumpingLimit) {
                 isWallJumping = false;
             } else {
-               
-                speed.x = vectorWallJumping.x*(timeWallJumpingLimit- timerWallJumping)/ timeWallJumpingLimit 
+
+                speed.x = vectorWallJumping.x * (timeWallJumpingLimit - timerWallJumping) / timeWallJumpingLimit
                     + speed.x * (timerWallJumping) / timeWallJumpingLimit;
             }
         }
@@ -92,11 +101,12 @@ public class MoverScript : MonoBehaviour {
         if (!canGoRight && speed.x < 0) {
             setCanGoRight(true);
         }
-        
+
 
         pos += speed * Time.deltaTime;
-        lastSpeed = speed;
+        lastSpeed = speed; // Save last speed
         gameObject.transform.position = pos;
+        
 
     }
 }
