@@ -14,6 +14,16 @@ public class MoverScript : MonoBehaviour {
     Vector2 vectorWallJumping;
     float timerWallJumping;
     public float timeWallJumpingLimit;
+    Vector2 lastSpeed;
+    Vector2 lastPos;
+
+    public Vector2 getLastSpeed() {
+        return lastSpeed;
+    }
+
+    public Vector2 getLastPos() {
+        return lastPos;
+    }
 
     public void walljump() {
         
@@ -45,6 +55,7 @@ public class MoverScript : MonoBehaviour {
         canGoLeft = true;
         canGoRight = true;
         isWallJumping = false;
+        lastSpeed = new Vector2();
     }
 
     
@@ -53,6 +64,7 @@ public class MoverScript : MonoBehaviour {
     void FixedUpdate () {
 
         Vector2 pos = gameObject.transform.position;
+        lastPos = pos;
         Vector2 speed = new Vector2(0, 0);
         speed += inputManager.getSpeed();
         speed += gravityManager.getSpeed();
@@ -83,7 +95,7 @@ public class MoverScript : MonoBehaviour {
         
 
         pos += speed * Time.deltaTime;
-
+        lastSpeed = speed;
         gameObject.transform.position = pos;
 
     }

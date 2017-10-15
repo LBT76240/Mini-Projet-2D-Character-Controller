@@ -6,6 +6,8 @@ public class Collision : MonoBehaviour {
 
     public Collider2D playerCollider;
 
+    public MoverScript moverScript;
+
     int numberSurfaceContact;
 
     private void Start() {
@@ -14,8 +16,18 @@ public class Collision : MonoBehaviour {
 
     // Update is called once per frame
     void OnTriggerEnter2D(Collider2D other) {
-
         if (other.CompareTag("Surface")) {
+
+            Vector2 lastSpeed = moverScript.getLastSpeed();
+
+            print("SH : " + lastSpeed.x);
+            print("SV : " + lastSpeed.y);
+
+            Vector2 lastPos = moverScript.getLastPos();
+
+            print("PH : " + lastPos.x);
+            print("PV : " + lastPos.y);
+
             numberSurfaceContact++;
             
             Vector2 posOther = other.transform.position;
