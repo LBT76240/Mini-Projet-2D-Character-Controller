@@ -18,11 +18,13 @@ public class Collision : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Surface")) {
 
+            //Recupére la dernière vitesse et dernière position
             Vector2 lastSpeed = moverScript.getLastSpeed();
             Vector2 lastPos = moverScript.getLastPos();
             
             numberSurfaceContact++;
             
+            //Recuperation de la position et taille de l'objet et du mur
             Vector2 posOther = other.transform.position;
             Vector2 scaleOther = other.transform.lossyScale;
             Vector2 posMe = playerCollider.transform.position;
@@ -30,7 +32,7 @@ public class Collision : MonoBehaviour {
 
 
             
-
+            //Test de quel coté du cube on a touché
             if((lastPos.x - scaleMe.x / 2 > posOther.x + scaleOther.x / 2) && (lastSpeed.x<0)) {
                 print("gauche");
                 posMe.x = posOther.x + scaleOther.x / 2 + scaleMe.x / 2;
@@ -53,6 +55,7 @@ public class Collision : MonoBehaviour {
                 posMe.y = posOther.y - scaleOther.y / 2 - scaleMe.y / 2;
             }
 
+            //Repositionner le cube et annuler la gravité
             gameObject.GetComponent<GravityManager>().touchSurface();
             gameObject.transform.position = posMe;
             

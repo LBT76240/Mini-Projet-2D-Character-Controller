@@ -31,13 +31,13 @@ public class MoverScript : MonoBehaviour {
         if(!canGoLeft) {
             
             isWallJumping = true;
-            vectorWallJumping = new Vector2(+5, 0);
+            vectorWallJumping = new Vector2(+inputManager.speed, 0);
             timerWallJumping = 0;
         }
         if (!canGoRight) {
             
             isWallJumping = true;
-            vectorWallJumping = new Vector2(-5, 0);
+            vectorWallJumping = new Vector2(-inputManager.speed, 0);
             timerWallJumping = 0;
         }
     }
@@ -74,10 +74,12 @@ public class MoverScript : MonoBehaviour {
         lastPos2 = lastPos;
         lastPos = pos;
 
+        //récupère la vitesse des différentes forces
         Vector2 speed = new Vector2(0, 0);
         speed += inputManager.getSpeed();
         speed += gravityManager.getSpeed();
 
+        //Cas où l'on est en WallJump
         if (isWallJumping) {
             timerWallJumping += Time.deltaTime;
             if (timerWallJumping > timeWallJumpingLimit) {
@@ -89,6 +91,7 @@ public class MoverScript : MonoBehaviour {
             }
         }
 
+        //Annulation des vitesses verticales si l'on est bloqué
         if (!canGoLeft && speed.x < 0) {
             speed.x = 0;
         }
@@ -102,7 +105,7 @@ public class MoverScript : MonoBehaviour {
             setCanGoRight(true);
         }
 
-
+        //Nouvelle position du cube
         pos += speed * Time.deltaTime;
         lastSpeed = speed; // Save last speed
         gameObject.transform.position = pos;
