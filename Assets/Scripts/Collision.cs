@@ -99,6 +99,10 @@ public class Collision : MonoBehaviour {
             
 
         }
+
+        if(other.CompareTag("Finish")) {
+            GameObject.Destroy(gameObject);
+        }
     }
 
     void OnTriggerStay2D(Collider2D other) {
