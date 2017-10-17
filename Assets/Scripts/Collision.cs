@@ -77,11 +77,14 @@ public class Collision : MonoBehaviour {
                 //print("bas");
                 posMe.y = posOther.y + scaleOther.y / 2 + scaleMe.y / 2;
                 gameObject.GetComponent<GravityManager>().setOnFloor();
-                
+                gameObject.GetComponent<MoverScript>().setOnFloor();
                 lastcollider = null;
                 //Repositionner le cube et annuler la gravité
                 gameObject.GetComponent<GravityManager>().touchSurface(false);
                 gameObject.transform.position = posMe;
+                if (other.CompareTag("Crossable Surface")) {
+                    gameObject.GetComponent<GravityManager>().setOnCrossableFloor();
+                }
             }
 
             if (!other.CompareTag("Crossable Surface")) {
@@ -116,6 +119,7 @@ public class Collision : MonoBehaviour {
             
             if(numberSurfaceContact==0) {
                 gameObject.GetComponent<GravityManager>().leaveSurface();
+                gameObject.GetComponent<MoverScript>().leaveSurface();
                 gameObject.GetComponent<MoverScript>().setCanGoRight(true);
                 gameObject.GetComponent<MoverScript>().setCanGoLeft(true);
             }

@@ -27,7 +27,12 @@ public class InputManager : MonoBehaviour {
         
 
         if (Input.GetButtonDown("Jump")) {
-            gravityManager.jump();
+            if(Input.GetAxis("Vertical")<-0.8) {
+                gravityManager.downJump();
+            } else {
+                gravityManager.jump();
+            }
+            
         }
 
 

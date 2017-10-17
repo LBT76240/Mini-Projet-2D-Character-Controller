@@ -12,7 +12,7 @@ public class GravityManager : MonoBehaviour {
     bool canDoubleJump;
     bool isSliding;
     bool isOnFloor;
-
+    bool isOnCrossableFloor;
 
     // Use this for initialization
     void Start () {
@@ -21,6 +21,7 @@ public class GravityManager : MonoBehaviour {
         canDoubleJump = false;
         isSliding = false;
         isOnFloor = false;
+        isOnCrossableFloor = false;
     }
 
     public void setSliding() {
@@ -31,14 +32,25 @@ public class GravityManager : MonoBehaviour {
         isOnFloor = true;
     }
 
+    public void setOnCrossableFloor() {
+        isOnCrossableFloor = true;
+    }
+
+    public void downJump() {
+        if(isTouchingSurface && isOnCrossableFloor) {
+            speedVector.y = -publicVariables.speed;
+            isOnCrossableFloor = false;
+        }
+    }
+
     public void jump() {
         if (isTouchingSurface) {
             leaveSurface();
             gameObject.GetComponent<MoverScript>().walljump();
-            speedVector.y = publicVariables.sprintSpeed/2;
+            speedVector.y = publicVariables.sprintSpeed;
         } else if(canDoubleJump) {
 
-            speedVector.y = publicVariables.sprintSpeed / 2;
+            speedVector.y = publicVariables.sprintSpeed;
             canDoubleJump = false;
         }
     }
@@ -60,6 +72,7 @@ public class GravityManager : MonoBehaviour {
         isTouchingSurface = false;
         isSliding = false;
         isOnFloor = false;
+        isOnCrossableFloor = false;
     }
     public Vector2 getSpeedVector() {
         return speedVector;
@@ -69,8 +82,8 @@ public class GravityManager : MonoBehaviour {
     void Update () {
         if (!isTouchingSurface) {
             speedVector.y -= G * Time.deltaTime;
-            if (speedVector.y <= -publicVariables.speed) {
-                speedVector.y = -publicVariables.speed;
+            if (speedVector.y <= -publicVariables.sprintSpeed) {
+                speedVector.y = -publicVariables.sprintSpeed;
             }
         } else if (isSliding){
             if (!isOnFloor) {

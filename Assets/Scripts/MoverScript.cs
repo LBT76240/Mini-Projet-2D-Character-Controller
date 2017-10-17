@@ -8,6 +8,8 @@ public class MoverScript : MonoBehaviour {
     public GravityManager gravityManager;
     public PublicVariables publicVariables;
 
+    public float speedFloorFactor;
+
     bool canGoLeft;
     bool canGoRight;
 
@@ -19,12 +21,21 @@ public class MoverScript : MonoBehaviour {
     Vector2 lastPos;
     Vector2 lastPos2;
     Vector2 lastPos3;
+    bool isOnAir;
     public Vector2 getLastSpeed() {
         return lastSpeed;
     }
 
     public Vector2 getLastPos() {
         return lastPos3;
+    }
+
+    public void leaveSurface() {
+        isOnAir = true;
+    }
+
+    public void setOnFloor() {
+        isOnAir = false;
     }
 
     public void walljump() {
@@ -79,6 +90,7 @@ public class MoverScript : MonoBehaviour {
         lastPos = new Vector2();
         lastPos2 = new Vector2();
         lastPos3 = new Vector2();
+        isOnAir = true;
     }
 
     
@@ -122,6 +134,10 @@ public class MoverScript : MonoBehaviour {
         }
         if (!canGoRight && speed.x < 0) {
             setCanGoRight(true);
+        }
+
+        if(!isOnAir) {
+            speed.x = speed.x * speedFloorFactor;
         }
 
         //Nouvelle position du cube

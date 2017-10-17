@@ -667,7 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9de2085a1da622843acb4b29368573ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  G: 9.8
+  G: 50
   publicVariables: {fileID: 434323356}
 --- !u!114 &434323353
 MonoBehaviour:
@@ -709,6 +709,7 @@ MonoBehaviour:
   inputManager: {fileID: 434323354}
   gravityManager: {fileID: 434323352}
   publicVariables: {fileID: 434323356}
+  speedFloorFactor: 0.8
   timeWallJumpingLimit: 1
 --- !u!114 &434323356
 MonoBehaviour:
@@ -977,7 +978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1844860801
 BoxCollider2D:
   m_ObjectHideFlags: 0
