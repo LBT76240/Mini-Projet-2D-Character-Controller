@@ -16,7 +16,7 @@ public class Collision : MonoBehaviour {
 
     // Update is called once per frame
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.CompareTag("Surface")) {
+        if (other.CompareTag("Surface") || other.CompareTag("Crossable Surface")) {
 
             //Recupére la dernière vitesse et dernière position
             Vector2 lastSpeed = moverScript.getLastSpeed();
@@ -30,34 +30,47 @@ public class Collision : MonoBehaviour {
             Vector2 posMe = playerCollider.transform.position;
             Vector2 scaleMe = playerCollider.transform.lossyScale;
 
-
+            bool oneCollisionDone = false;
             
             //Test de quel coté du cube on a touché
             if((lastPos.x - scaleMe.x / 2 > posOther.x + scaleOther.x / 2) && (lastSpeed.x<0)) {
-                print("gauche");
+                //print("gauche");
                 posMe.x = posOther.x + scaleOther.x / 2 + scaleMe.x / 2;
                 gameObject.GetComponent<MoverScript>().setCanGoLeft(false);
+                gameObject.GetComponent<GravityManager>().setSliding();
+                oneCollisionDone = true;
             }
 
             if ((lastPos.x + scaleMe.x / 2 < posOther.x - scaleOther.x / 2) && (lastSpeed.x > 0)) {
-                print("droit");
+                //print("droit");
                 posMe.x = posOther.x - scaleOther.x / 2 - scaleMe.x / 2;
                 gameObject.GetComponent<MoverScript>().setCanGoRight(false);
+                gameObject.GetComponent<GravityManager>().setSliding();
+                oneCollisionDone = true;
             }
 
             if ((lastPos.y - scaleMe.y / 2 > posOther.y + scaleOther.y / 2) && (lastSpeed.y < 0)) {
-                print("bas");
+                //print("bas");
                 posMe.y = posOther.y + scaleOther.y / 2 + scaleMe.y / 2;
+                gameObject.GetComponent<GravityManager>().setOnFloor();
+                oneCollisionDone = true;
             }
 
-            if ((lastPos.y + scaleMe.y / 2 < posOther.y - scaleOther.y / 2) && (lastSpeed.y > 0)) {
-                print("haut");
-                posMe.y = posOther.y - scaleOther.y / 2 - scaleMe.y / 2;
-            }
+            if (!other.CompareTag("Crossable Surface")) {
+                if ((lastPos.y + scaleMe.y / 2 < posOther.y - scaleOther.y / 2) && (lastSpeed.y > 0)) {
+                    //print("haut");
+                    posMe.y = posOther.y - scaleOther.y / 2 - scaleMe.y / 2;
+                    gameObject.GetComponent<GravityManager>().touchCeiling();
+                    gameObject.transform.position = posMe;
+                }
 
-            //Repositionner le cube et annuler la gravité
-            gameObject.GetComponent<GravityManager>().touchSurface();
-            gameObject.transform.position = posMe;
+
+            }
+            if (oneCollisionDone) {
+                //Repositionner le cube et annuler la gravité
+                gameObject.GetComponent<GravityManager>().touchSurface();
+                gameObject.transform.position = posMe;
+            }
             
         }
     }
@@ -67,7 +80,7 @@ public class Collision : MonoBehaviour {
     }
 
     void OnTriggerExit2D(Collider2D other) {
-        if (other.CompareTag("Surface")) {
+        if (other.CompareTag("Surface") || other.CompareTag("Crossable Surface")) {
             numberSurfaceContact--;
             
             

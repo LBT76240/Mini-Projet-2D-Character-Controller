@@ -5,8 +5,8 @@ using UnityEngine;
 public class InputManager : MonoBehaviour {
 
     public GravityManager gravityManager;
+    public PublicVariables publicVariables;
 
-    public float speed;
     Vector2 speedVector;
     
 
@@ -15,14 +15,14 @@ public class InputManager : MonoBehaviour {
     }
 
     
-    public Vector2 getSpeed() {
+    public Vector2 getSpeedVector() {
         return speedVector;
     }
 
     // Update is called once per frame
     void Update () {
 
-        speedVector.x = Input.GetAxis("Horizontal")*speed;
+        speedVector.x = Input.GetAxis("Horizontal")* publicVariables.speed;
 
         if(Input.GetButtonDown("Jump")) {
             gravityManager.jump();

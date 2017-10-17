@@ -6,6 +6,7 @@ public class MoverScript : MonoBehaviour {
 
     public InputManager inputManager;
     public GravityManager gravityManager;
+    public PublicVariables publicVariables;
 
     bool canGoLeft;
     bool canGoRight;
@@ -31,13 +32,13 @@ public class MoverScript : MonoBehaviour {
         if(!canGoLeft) {
             
             isWallJumping = true;
-            vectorWallJumping = new Vector2(+inputManager.speed, 0);
+            vectorWallJumping = new Vector2(+publicVariables.speed, 0);
             timerWallJumping = 0;
         }
         if (!canGoRight) {
             
             isWallJumping = true;
-            vectorWallJumping = new Vector2(-inputManager.speed, 0);
+            vectorWallJumping = new Vector2(-publicVariables.speed, 0);
             timerWallJumping = 0;
         }
     }
@@ -76,8 +77,8 @@ public class MoverScript : MonoBehaviour {
 
         //récupère la vitesse des différentes forces
         Vector2 speed = new Vector2(0, 0);
-        speed += inputManager.getSpeed();
-        speed += gravityManager.getSpeed();
+        speed += inputManager.getSpeedVector();
+        speed += gravityManager.getSpeedVector();
 
         //Cas où l'on est en WallJump
         if (isWallJumping) {

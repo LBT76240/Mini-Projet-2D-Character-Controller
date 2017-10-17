@@ -6,29 +6,46 @@ public class GravityManager : MonoBehaviour {
 
     public float G;
     Vector2 speedVector;
-    
+    public PublicVariables publicVariables;
 
     bool isTouchingSurface;
     bool canDoubleJump;
-    
+    bool isSliding;
+    bool isOnFloor;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         speedVector = new Vector2(0,0);
         isTouchingSurface = false;
         canDoubleJump = false;
+        isSliding = false;
+        isOnFloor = false;
+    }
+
+    public void setSliding() {
+        isSliding = true;
+    }
+
+    public void setOnFloor() {
+        isOnFloor = true;
     }
 
     public void jump() {
         if (isTouchingSurface) {
             leaveSurface();
             gameObject.GetComponent<MoverScript>().walljump();
-            speedVector.y = 5;
+            speedVector.y = publicVariables.speed/2;
         } else if(canDoubleJump) {
 
-            speedVector.y = 5;
+            speedVector.y = publicVariables.speed/2;
             canDoubleJump = false;
         }
+    }
+
+    public void touchCeiling() {
+        speedVector.y = 0;
+        canDoubleJump = false;
     }
 
     public void touchSurface() {
@@ -38,8 +55,10 @@ public class GravityManager : MonoBehaviour {
     }
     public void leaveSurface() {
         isTouchingSurface = false;
+        isSliding = false;
+        isOnFloor = false;
     }
-    public Vector2 getSpeed() {
+    public Vector2 getSpeedVector() {
         return speedVector;
     }
 
@@ -47,8 +66,15 @@ public class GravityManager : MonoBehaviour {
     void Update () {
         if (!isTouchingSurface) {
             speedVector.y -= G * Time.deltaTime;
-            if (speedVector.y <= -10) {
-                speedVector.y = -10;
+            if (speedVector.y <= -publicVariables.speed) {
+                speedVector.y = -publicVariables.speed;
+            }
+        } else if (isSliding){
+            if (!isOnFloor) {
+                speedVector.y -= G * Time.deltaTime;
+                if (speedVector.y <= -publicVariables.speed / 5) {
+                    speedVector.y = -publicVariables.speed / 5;
+                }
             }
         }
         

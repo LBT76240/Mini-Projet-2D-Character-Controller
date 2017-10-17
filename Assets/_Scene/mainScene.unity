@@ -548,6 +548,7 @@ GameObject:
   - component: {fileID: 434323353}
   - component: {fileID: 434323354}
   - component: {fileID: 434323355}
+  - component: {fileID: 434323356}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -667,6 +668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   G: 9.8
+  publicVariables: {fileID: 434323356}
 --- !u!114 &434323353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -692,7 +694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityManager: {fileID: 434323352}
-  speed: 10
+  publicVariables: {fileID: 434323356}
 --- !u!114 &434323355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,7 +708,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 434323354}
   gravityManager: {fileID: 434323352}
+  publicVariables: {fileID: 434323356}
   timeWallJumpingLimit: 1
+--- !u!114 &434323356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 434323347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8af67941b6cadb647bf9fc43ae131c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
 --- !u!1 &1310661836
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,7 +853,7 @@ GameObject:
   - component: {fileID: 1714002851}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Surface
+  m_TagString: Crossable Surface
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -921,7 +936,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 9eb2c1b3afe6f69479675ffa5d642a1b, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.006896496, a: 1}
+  m_Color: {r: 0, g: 0.5862069, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
