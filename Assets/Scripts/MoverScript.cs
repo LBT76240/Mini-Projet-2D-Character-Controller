@@ -33,13 +33,13 @@ public class MoverScript : MonoBehaviour {
         if(!canGoLeft) {
             
             isWallJumping = true;
-            vectorWallJumping = new Vector2(+publicVariables.speed, 0);
+            vectorWallJumping = new Vector2(+publicVariables.sprintSpeed, 0);
             timerWallJumping = 0;
         }
         if (!canGoRight) {
             
             isWallJumping = true;
-            vectorWallJumping = new Vector2(-publicVariables.speed, 0);
+            vectorWallJumping = new Vector2(-publicVariables.sprintSpeed, 0);
             timerWallJumping = 0;
         }
     }
@@ -51,7 +51,10 @@ public class MoverScript : MonoBehaviour {
         canGoLeft = value;
         
         if (!value) {
-            Input.ResetInputAxes();
+            if (!Input.GetButton("Horizontal")) {
+                Input.ResetInputAxes();
+            }
+           
             timerWallJumping = timeWallJumpingLimit;
         }
 
@@ -61,7 +64,9 @@ public class MoverScript : MonoBehaviour {
         canGoRight = value;
         
         if (!value) {
-            Input.ResetInputAxes();
+            if (!Input.GetButton("Horizontal")) {
+                Input.ResetInputAxes();
+            }
             timerWallJumping = timeWallJumpingLimit;
         }
     }

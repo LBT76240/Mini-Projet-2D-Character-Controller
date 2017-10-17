@@ -35,10 +35,10 @@ public class GravityManager : MonoBehaviour {
         if (isTouchingSurface) {
             leaveSurface();
             gameObject.GetComponent<MoverScript>().walljump();
-            speedVector.y = publicVariables.speed/2;
+            speedVector.y = publicVariables.sprintSpeed/2;
         } else if(canDoubleJump) {
 
-            speedVector.y = publicVariables.speed/2;
+            speedVector.y = publicVariables.sprintSpeed / 2;
             canDoubleJump = false;
         }
     }
@@ -48,10 +48,13 @@ public class GravityManager : MonoBehaviour {
         canDoubleJump = false;
     }
 
-    public void touchSurface() {
+    public void touchSurface(bool preventWallJumpFromTheSameWall) {
         speedVector.y = 0;
         isTouchingSurface = true;
-        canDoubleJump = true;
+        if(!preventWallJumpFromTheSameWall) {
+            canDoubleJump = true;
+        }
+        
     }
     public void leaveSurface() {
         isTouchingSurface = false;

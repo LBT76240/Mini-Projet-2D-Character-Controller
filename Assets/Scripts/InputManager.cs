@@ -22,17 +22,24 @@ public class InputManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        speedVector.x = Input.GetAxis("Horizontal")* publicVariables.speed;
+        speedVector.x = Input.GetAxis("Horizontal")* publicVariables.userSpeed;
+        
         
 
-        if(Input.GetButtonDown("Jump")) {
+        if (Input.GetButtonDown("Jump")) {
             gravityManager.jump();
         }
 
-        
 
-        
 
-       
+
+        if (Input.GetButtonDown("Sprint")) {
+            publicVariables.setSprint(true);
+        }
+        if (Input.GetButtonUp("Sprint")) {
+            publicVariables.setSprint(false);
+        }
+
+
     }
 }
