@@ -9,13 +9,14 @@ public class GravityManager : MonoBehaviour {
     
 
     bool isTouchingSurface;
-
+    bool canDoubleJump;
     
 
 	// Use this for initialization
 	void Start () {
         speedVector = new Vector2(0,0);
         isTouchingSurface = false;
+        canDoubleJump = false;
     }
 
     public void jump() {
@@ -23,12 +24,17 @@ public class GravityManager : MonoBehaviour {
             leaveSurface();
             gameObject.GetComponent<MoverScript>().walljump();
             speedVector.y = 5;
+        } else if(canDoubleJump) {
+
+            speedVector.y = 5;
+            canDoubleJump = false;
         }
     }
 
     public void touchSurface() {
         speedVector.y = 0;
         isTouchingSurface = true;
+        canDoubleJump = true;
     }
     public void leaveSurface() {
         isTouchingSurface = false;
