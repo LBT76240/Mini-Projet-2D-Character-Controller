@@ -29,6 +29,7 @@ public class MoverScript : MonoBehaviour {
 
     public void walljump() {
         
+        
         if(!canGoLeft) {
             
             isWallJumping = true;
@@ -45,12 +46,24 @@ public class MoverScript : MonoBehaviour {
 
 
 
+
     public void setCanGoLeft(bool value) {
         canGoLeft = value;
+        
+        if (!value) {
+            Input.ResetInputAxes();
+            timerWallJumping = timeWallJumpingLimit;
+        }
+
     }
 
     public void setCanGoRight(bool value) {
         canGoRight = value;
+        
+        if (!value) {
+            Input.ResetInputAxes();
+            timerWallJumping = timeWallJumpingLimit;
+        }
     }
 
     public void Start() {

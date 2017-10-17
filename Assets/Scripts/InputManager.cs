@@ -23,6 +23,7 @@ public class InputManager : MonoBehaviour {
     void Update () {
 
         speedVector.x = Input.GetAxis("Horizontal")* publicVariables.speed;
+        
 
         if(Input.GetButtonDown("Jump")) {
             gravityManager.jump();
