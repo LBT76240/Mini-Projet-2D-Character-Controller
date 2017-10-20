@@ -61,13 +61,18 @@ public class GravityManager : MonoBehaviour {
     }
 
     public void touchSurface(bool preventWallJumpFromTheSameWall) {
-        speedVector.y = 0;
+        
         isTouchingSurface = true;
         if(!preventWallJumpFromTheSameWall) {
             canDoubleJump = true;
         }
         
     }
+
+    public  void touchFloor() {
+        speedVector.y = 0;
+    }
+
     public void leaveSurface() {
         isTouchingSurface = false;
         isSliding = false;

@@ -81,6 +81,7 @@ public class Collision : MonoBehaviour {
                 lastcollider = null;
                 //Repositionner le cube et annuler la gravité
                 gameObject.GetComponent<GravityManager>().touchSurface(false);
+                gameObject.GetComponent<GravityManager>().touchFloor();
                 gameObject.transform.position = posMe;
                 if (other.CompareTag("Crossable Surface")) {
                     gameObject.GetComponent<GravityManager>().setOnCrossableFloor();

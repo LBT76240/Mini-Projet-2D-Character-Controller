@@ -122,9 +122,10 @@ public class MoverScript : MonoBehaviour {
             }
         }
 
+        /*
         if (speed.y > 0 && speed.x == 0) {
             speed.y = 0;
-        }
+        }*/
 
         //Annulation des vitesses verticales si l'on est bloqué
         if (!canGoLeft && speed.x < 0) {
