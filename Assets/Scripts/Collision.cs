@@ -10,7 +10,12 @@ public class Collision : MonoBehaviour {
 
     Collider2D lastcollider;
 
-    public int numberSurfaceContact;
+    //Compteur pour savoir combien de surface on est en contact actuellement
+    int numberSurfaceContact;
+
+    public int getNumberSurfaceContact () {
+        return numberSurfaceContact;
+    }
 
     private void Start() {
         numberSurfaceContact = 0;
@@ -109,9 +114,7 @@ public class Collision : MonoBehaviour {
         }
     }
 
-    void OnTriggerStay2D(Collider2D other) {
-        
-    }
+    
 
     void OnTriggerExit2D(Collider2D other) {
         if (other.CompareTag("Surface") || other.CompareTag("Crossable Surface")) {

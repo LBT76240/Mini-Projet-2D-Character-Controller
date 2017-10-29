@@ -22,7 +22,7 @@ public class InputManager : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        speedVector.x = Input.GetAxis("Horizontal")* publicVariables.userSpeed;
+        speedVector.x = Input.GetAxis("Horizontal")* publicVariables.getUserSpeed();
         
         
 

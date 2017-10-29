@@ -11,7 +11,7 @@ public class MoverScript : MonoBehaviour {
 
     public float speedFloorFactor;
 
-    public float waitTime = 1f;
+    public float timeStickOnWall = 0.4f;
     bool canGoLeft;
     float waitForRight = 0f;
     bool canGoRight;
@@ -20,7 +20,7 @@ public class MoverScript : MonoBehaviour {
     bool isWallJumping;
     Vector2 vectorWallJumping;
     float timerWallJumping;
-    public float timeWallJumpingLimit;
+    float timeWallJumpingLimit = 1f;
     Vector2 lastSpeed;
     Vector2 lastPos;
     Vector2 lastPos2;
@@ -42,6 +42,7 @@ public class MoverScript : MonoBehaviour {
         isOnAir = false;
     }
 
+    //Fonction pour lancer un walljump
     public void walljump() {
         
         
@@ -63,7 +64,7 @@ public class MoverScript : MonoBehaviour {
 
 
 
-
+    //Fonction pour indiquer qu'on est bloqué à gauche ou à droite
     public void setCanGoLeft(bool value) {
         canGoLeft = value;
         
@@ -73,7 +74,7 @@ public class MoverScript : MonoBehaviour {
             }
            
             timerWallJumping = timeWallJumpingLimit;
-            waitForRight = waitTime;
+            waitForRight = timeStickOnWall;
         }
 
     }
@@ -86,7 +87,7 @@ public class MoverScript : MonoBehaviour {
                 Input.ResetInputAxes();
             }
             timerWallJumping = timeWallJumpingLimit;
-            waitForLeft = waitTime;
+            waitForLeft = timeStickOnWall;
         }
     }
 
@@ -130,17 +131,18 @@ public class MoverScript : MonoBehaviour {
             }
         }
 
-        /*
-        if (speed.y > 0 && speed.x == 0) {
-            speed.y = 0;
-        }*/
+        
+        //On applique le facteur de vitesse quand on est sur le sol
+        if (!isOnAir) {
+            speed.x = speed.x * speedFloorFactor;
+        }
 
         //Annulation des vitesses verticales si l'on est bloqué
         if (!canGoLeft && speed.x < 0) {
             speed.x = 0;
         }
         if (!canGoLeft && speed.x > 0) {
-            if(collision.numberSurfaceContact==1) {
+            if(collision.getNumberSurfaceContact()== 1) {
                 waitForRight -= Time.deltaTime;
                 if (waitForRight < 0) {
                     setCanGoLeft(true);
@@ -153,13 +155,13 @@ public class MoverScript : MonoBehaviour {
             
             
         } else {
-            waitForRight = waitTime;
+            waitForRight = timeStickOnWall;
         }
         if (!canGoRight && speed.x > 0) {
             speed.x = 0;
         }
         if (!canGoRight && speed.x < 0) {
-            if (collision.numberSurfaceContact == 1) {
+            if (collision.getNumberSurfaceContact() == 1) {
                 waitForLeft -= Time.deltaTime;
                 if (waitForLeft < 0) {
                     setCanGoRight(true);
@@ -172,9 +174,7 @@ public class MoverScript : MonoBehaviour {
             
         }
 
-        if(!isOnAir) {
-            speed.x = speed.x * speedFloorFactor;
-        }
+        
 
         
 

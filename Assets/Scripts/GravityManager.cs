@@ -36,6 +36,7 @@ public class GravityManager : MonoBehaviour {
         isOnCrossableFloor = true;
     }
 
+    //Saut vers le bas pour passer à travers une platforme
     public void downJump() {
         if(isTouchingSurface && isOnCrossableFloor) {
             speedVector.y = -publicVariables.speed;

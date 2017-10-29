@@ -945,8 +945,9 @@ MonoBehaviour:
   inputManager: {fileID: 434323354}
   gravityManager: {fileID: 434323352}
   publicVariables: {fileID: 434323356}
+  collision: {fileID: 434323353}
   speedFloorFactor: 0.8
-  timeWallJumpingLimit: 1
+  timeStickOnWall: 0.4
 --- !u!114 &434323356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -960,7 +961,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7.5
   sprintSpeed: 15
-  userSpeed: 0
 --- !u!1 &619910835
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class PublicVariables : MonoBehaviour {
 
+
+    //variable pour régler la vitesse du joueur
     public float speed;
     public float sprintSpeed;
 
-    public float userSpeed;
+    //La vitesse actuelle du joueur
+    float userSpeed;
 
     bool isSprinting;
    
+    public float getUserSpeed() {
+        return userSpeed;
+    }
 
     public void Start() {
         userSpeed = speed;
