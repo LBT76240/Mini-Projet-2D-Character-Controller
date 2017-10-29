@@ -37,19 +37,15 @@ public class InputManager : MonoBehaviour {
 
 
         
-        /*
-        if(Input.GetAxis("Sprint")<-0.55) {
+        
+        
+        if(Input.GetAxis("Sprint")<-0.55 || Input.GetButton("Sprint")) {
             publicVariables.setSprint(true);
         } else {
             publicVariables.setSprint(false);
-        }*/
+        }
 
-        if (Input.GetButtonDown("Sprint")) {
-            publicVariables.setSprint(true);
-        }
-        if (Input.GetButtonUp("Sprint")) {
-            publicVariables.setSprint(false);
-        }
+        
 
 
     }

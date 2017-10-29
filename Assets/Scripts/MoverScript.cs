@@ -11,7 +11,7 @@ public class MoverScript : MonoBehaviour {
 
     public float speedFloorFactor;
 
-    float waitTime = 1f;
+    public float waitTime = 1f;
     bool canGoLeft;
     float waitForRight = 0f;
     bool canGoRight;

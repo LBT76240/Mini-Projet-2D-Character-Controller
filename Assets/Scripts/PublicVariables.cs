@@ -8,18 +8,25 @@ public class PublicVariables : MonoBehaviour {
     public float sprintSpeed;
 
     public float userSpeed;
+
+    bool isSprinting;
    
 
     public void Start() {
         userSpeed = speed;
+        isSprinting = false;
     }
 
     public void setSprint(bool value) {
-        if(value) {
-            userSpeed = sprintSpeed;
-        } else {
-            userSpeed = speed;
+        if(value!= isSprinting) {
+            isSprinting = value;
+            if (value) {
+                userSpeed = sprintSpeed;
+            } else {
+                userSpeed = speed;
+            }
         }
+        
     }
 	
 }
