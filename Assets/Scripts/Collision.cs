@@ -10,7 +10,7 @@ public class Collision : MonoBehaviour {
 
     Collider2D lastcollider;
 
-    int numberSurfaceContact;
+    public int numberSurfaceContact;
 
     private void Start() {
         numberSurfaceContact = 0;
